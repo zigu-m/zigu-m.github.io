@@ -1,28 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Centered Hello</title>
-  <style>
-    /* 화면 전체를 중앙 정렬하기 위한 스타일 */
-    body {
-      margin: 0;
-      height: 100vh; /* 화면 높이를 100%로 설정 */
-      display: flex;
-      justify-content: center; /* 가로 중앙 정렬 */
-      align-items: center; /* 세로 중앙 정렬 */
-      background-color: #f9f9f9; /* 배경색 (선택 사항) */
-      font-family: "Times New Roman", serif; /* 세리프체 폰트 */
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation Example</title>
+    <style>
+        /* 화면 중앙 정렬 및 핑크 배경색 추가 */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: pink; /* 핑크 배경색 */
+            font-family: "Times New Roman", serif;
+        }
 
-    h1 {
-      color: pink; /* 텍스트 색상 */
-      font-size: 4rem; /* 텍스트 크기 */
-    }
-  </style>
+        /* Hello 텍스트 스타일 */
+        #hello {
+            color: black; /* 검은색 텍스트 */
+            font-size: 4rem;
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* 안녕 ! 텍스트 스타일 */
+        #annyeong {
+            color: black; /* 검은색 텍스트 */
+            font-size: 4rem;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* 안녕 ! 텍스트가 나타날 때 */
+        #annyeong.show {
+            opacity: 1;
+        }
+    </style>
 </head>
 <body>
-  <h1>Hello</h1>
+    <!-- 텍스트 요소 -->
+    <h1 id="hello">Hello</h1>
+    <h1 id="annyeong">안녕 !</h1>
+
+    <script>
+        // JavaScript로 애니메이션 제어
+        setTimeout(() => {
+            // "안녕 !" 텍스트를 표시
+            document.getElementById("annyeong").classList.add("show");
+
+            // "Hello" 텍스트를 숨김
+            document.getElementById("hello").style.opacity = "0";
+        }, 3000); // 3초 후 실행
+    </script>
 </body>
 </html>
