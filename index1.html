@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Net Art Diagram</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .text-container {
+            display: flex;
+            gap: 10px; /* 단어 간격 */
+        }
+        .word {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            display: inline-block;
+            transition: transform 0.5s ease; /* 부드러운 회전 효과 */
+            z-index: 2;
+        }
+        .rotated {
+            transform: rotate(180deg); /* 시계 방향으로 180도 회전 */
+            color: #ff6347;
+        }
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.5s ease;
+        }
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            width: 100%;
+            height: 100%;
+        }
+        .split::before,
+        .split::after {
+            content: '';
+            position: absolute;
+            background-color: black;
+            z-index: 1;
+        }
+        .split::before {
+            width: 2px;
+            height: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .split::after {
+            width: 100%;
+            height: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .quadrant {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            transition: background-color 0.5s ease;
+        }
+    
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-container">
+            <span class="word">The</span>
+            <span class="word">art</span>
+            <span class="word">happens</span>
+            <span class="word">here</span>
+        </div>
+    </div>
+
+    <script>
+        const container = document.querySelector('.container');
+        const words = document.querySelectorAll('.word');
+        let isSplit = false;
+
+        words.forEach(word => {
+            word.addEventListener('click', () => {
+                word.classList.toggle('rotated');
+            });
+        });
+
+        container.addEventListener('click', (e) => {
+            if (e.target === container) {
+                if (!isSplit) {
+                    container.classList.add('split');
+                    container.innerHTML = '';
+                    const colors = ['#FFB3BA', '#BAFFC9', '#BAE1FF', '#FFFFBA']; // 파스텔 색상
+                    words.forEach((word, index) => {
+                        const quadrant = document.createElement('div');
+                        quadrant.classList.add('quadrant');
+                        quadrant.style.backgroundColor = colors[index];
+                        quadrant.appendChild(word);
+                        container.appendChild(quadrant);
+                    });
+                    isSplit = true;
+                } else {
+                    container.classList.remove('split');
+                    container.innerHTML = '<div class="text-container"></div>';
+                    const textContainer = container.querySelector('.text-container');
+                    words.forEach(word => {
+                        textContainer.appendChild(word);
+                    });
+                    isSplit = false;
+                }
+            }
+        });
+
+
+    </script>
+</body>
+</html>
